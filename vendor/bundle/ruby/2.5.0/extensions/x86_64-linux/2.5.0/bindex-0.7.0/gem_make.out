@@ -1,0 +1,15 @@
+current directory: /home/kaylyn/Documents/awesome_answers_may/vendor/bundle/ruby/2.5.0/gems/bindex-0.7.0/ext/skiptrace
+/home/kaylyn/.rvm/rubies/ruby-2.5.1/bin/ruby -r ./siteconf20190628-18666-2pd5gp.rb extconf.rb
+creating Makefile
+
+current directory: /home/kaylyn/Documents/awesome_answers_may/vendor/bundle/ruby/2.5.0/gems/bindex-0.7.0/ext/skiptrace
+make "DESTDIR=" clean
+
+current directory: /home/kaylyn/Documents/awesome_answers_may/vendor/bundle/ruby/2.5.0/gems/bindex-0.7.0/ext/skiptrace
+make "DESTDIR="
+compiling cruby.c
+linking shared-object skiptrace/cruby.so
+
+current directory: /home/kaylyn/Documents/awesome_answers_may/vendor/bundle/ruby/2.5.0/gems/bindex-0.7.0/ext/skiptrace
+make "DESTDIR=" install
+/usr/bin/install -m 0755 cruby.so ./.gem.20190628-18666-sqzgsv/skiptrace

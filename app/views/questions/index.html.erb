@@ -1,0 +1,7 @@
+<h1>All Questions</h1>
+
+<% @question.each do |record|%>
+    <h2><%= link_to record.title, question_path(record)%></h2>
+    <p><%= record.body%></p>
+    <hr>
+<% end %>

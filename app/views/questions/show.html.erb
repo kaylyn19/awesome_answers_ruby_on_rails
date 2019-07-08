@@ -1,0 +1,47 @@
+<h1><%= @question.title %></h1>
+
+<p><%= @question.body %></p>
+<p><%= @question.created_at %></p>
+<p>Created by: <%= @question.user&.full_name || 'DELETED'%></p>
+
+<% if can? :crud, @question %>
+  <%= link_to "Edit", edit_question_path(@question) %>
+  <%= link_to "Delete", question_path(@question), method: :delete, data: {confirm: "Are you sure?"} %>
+<% end %>
+
+<hr>
+
+<%= form_with(model: [@question, @answer], local: true) do |f| %>
+    <% if @answer.errors.any? %>
+      <ul>
+        <% @answer.errors.full_messages.each do |msg|%>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  
+    <div class="form-group">
+      <%= f.text_area(
+      :body,
+      cols: 50,
+      rows: 5,
+      placeholder: "What are your thoughts?",
+      class: "form-control"
+      ) %>
+    </div>
+    <%= f.submit "Answer" %>
+  <% end %>
+
+  <hr/>
+
+  <ul class="answer-list">
+    <% @answers.each do |answer| %>
+        <li>
+            <%= answer.body %>
+            <% if can? :crud, answer %>
+              <small><%= link_to "Delete", question_answer_path(@question.id,answer.id), method: :delete, data: {confirm: "Are you sure?"}%></small> | 
+            <% end %>
+            <small>Answered <%= time_ago_in_words(answer.created_at) %> ago </small>
+        </li>
+    <% end %>
+  </ul>
