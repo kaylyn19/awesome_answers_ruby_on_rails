@@ -10,6 +10,8 @@
 
 # To run your seeds, do:
 # rails db:seed
+Tag.delete_all
+Like.delete_all
 Answer.delete_all
 Question.delete_all
 User.delete_all
@@ -39,6 +41,13 @@ end
 
 users = User.all
 
+20.times do
+  Tag.create(
+    name: Faker::Book.genre
+  )
+end
+tags = Tag.all
+
 NUM_QUESTIONS.times do
   created_at = Faker::Date.backward(365 * 5)
   q = Question.create(
@@ -59,6 +68,8 @@ NUM_QUESTIONS.times do
       user: users.sample
       )
     end
+    q.likers = users.shuffle.slice(0, rand(users.count))
+    q.tags = tags.shuffle.slice(0, rand(tags.count/2))
   end
 end
 
@@ -68,3 +79,4 @@ answer = Answer.all
 puts Cowsay.say("Generated #{question.count} questions", :frogs)
 puts Cowsay.say("Generated #{answer.count} answers", :tux)
 puts Cowsay.say("Generated #{users.count} users", :stegosaurus)
+puts Cowsay.say("Generated #{tags.count} tag", :kitty)

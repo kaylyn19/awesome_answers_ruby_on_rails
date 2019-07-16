@@ -36,10 +36,16 @@ class QuestionsController < ApplicationController
         @answer = Answer.new
         # For the list of answers
         @answers = @question.answers.order(created_at: :desc)
+        @likes = @question.likes.count
     end
 
     def index
-        @question = Question.all.order(created_at: :desc)
+        if params[:tag]
+            @tag = Tag.find_by(name: params[:tag])
+            @questions = @tag.questions.order(created_at: :desc)
+        else
+            @questions = Question.order(created_at: :desc)
+        end
     end
 
     def edit
@@ -66,7 +72,7 @@ class QuestionsController < ApplicationController
     private
 
     def question_params
-        params.require(:question).permit(:title, :body)
+        params.require(:question).permit(:title, :body, :tag_names)# {tag_ids: []})
     end
 
     def find_question

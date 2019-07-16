@@ -56,5 +56,13 @@ class Ability
 
     # can write abilities like:
     # can :crud, Question, user_id: user.id
+
+    can(:crud, JobPost) do |job_post|
+      job_post.user == user
+    end
+
+    can(:like, Question) do |question|
+      user.present? && question.user != user
+    end
   end
 end

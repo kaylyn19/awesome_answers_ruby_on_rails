@@ -37,6 +37,21 @@ class Question < ApplicationRecord
     # .answers.create!(attributes = {})
     # .answers.reload
 
+    # Many to Many :likes
+    # has_and_belongs_to_many :likes, dependent: :destroy # called direct association; this creates a table but not the model
+    # ^ this way is discouraged because it's too rigid
+    # instead you should use has_many:through association:
+    has_many :likes, dependent: :destroy # define likes relationship first to install the optional arguments before associating users through likes
+    has_many :likers, through: :likes, source: :user
+
+    has_many :taggings, dependent: :destroy
+    has_many :tags, through: :taggings#, source: :tag
+    # if the name of the association (i.e. :tags) is the same as the source singularized (i.e. :tag)
+    # then the source argument can be omitted.
+
+
+
+
     # Create validations by using the 'validates' method
     # The arguments are (in order):
     # - A column name as a symbol
@@ -97,6 +112,23 @@ class Question < ApplicationRecord
     # end
     # Equivalent to:
     scope(:search, -> (query) { where("title ILIKE ? OR body ILIKE ?", "%#{query}%", "%#{query}%") })
+
+    def tag_names #getter
+      self.tags.map{ |tag| tag.name }.join(', ')
+    end
+
+    # Appending = at the end of a method name, allows us to implement a setter
+    # A setter is a method that is assignable
+
+    # Example: 
+    # q.tag_names = 'stuff'
+    def tag_names=(rhs) #setter
+      self.tags = rhs.strip.split(/\s*,\s*/).map do |tag_name|
+        # finds the first record with the given attributes or initializes a record (Tag.new)
+        # with the attributes if one is not found
+        Tag.find_or_initialize_by(name: tag_name)
+      end
+    end
   
     private
   

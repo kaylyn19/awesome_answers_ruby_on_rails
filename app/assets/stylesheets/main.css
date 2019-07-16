@@ -6,3 +6,8 @@ ul.answer-list {
 .full-width {
     width: 100%;
 }
+
+.tag-wrapper {
+    display: inline-block;
+    padding: 0px 5px
+}

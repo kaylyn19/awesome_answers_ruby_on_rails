@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'likes/create'
+  get 'likes/destroy'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # This defines a route rule that says when we receive
@@ -34,6 +36,7 @@ Rails.application.routes.draw do
     # resources :answers, except: [:show, :index, :new, :edit, :update]
     # question_answers_path(<question-id>), question_answer_url(<question-id>)
     # question_answers_path(@question.id)
+    resources :likes, only: [:create, :destroy]
   end
 
   resources :users, only: [:new, :create]
@@ -46,4 +49,5 @@ Rails.application.routes.draw do
   # there will be no index routes, and no route will have an ':id' wild card. 
   # When using a singluar resource, the controller must still be plural.
 
+  resources :job_posts, only: [:new, :create, :show, :destroy, :index]
 end
