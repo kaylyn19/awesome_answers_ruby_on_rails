@@ -41,7 +41,7 @@ class QuestionsController < ApplicationController
 
     def index
         if params[:tag]
-            @tag = Tag.find_by(name: params[:tag])
+            @tag = Tag.find_or_initialize_by(name: params[:tag])
             @questions = @tag.questions.order(created_at: :desc)
         else
             @questions = Question.order(created_at: :desc)

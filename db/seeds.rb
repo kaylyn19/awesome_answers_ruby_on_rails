@@ -10,6 +10,7 @@
 
 # To run your seeds, do:
 # rails db:seed
+Tagging.delete_all
 Tag.delete_all
 Like.delete_all
 Answer.delete_all

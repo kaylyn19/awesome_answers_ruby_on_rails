@@ -45,6 +45,9 @@ gem 'cancancan'
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem "selectize-rails"
+gem 'delayed_job_active_record'
+gem 'delayed_job_web'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -52,6 +55,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'factory_bot_rails'
+  gem "letter_opener"
 end
 
 group :development do

@@ -50,4 +50,11 @@ Rails.application.routes.draw do
   # When using a singluar resource, the controller must still be plural.
 
   resources :job_posts, only: [:new, :create, :show, :destroy, :index]
+
+  # match("/delayed_job",
+  # to: DelayedJobWeb, 
+  # anchor: false, 
+  # via: [:get, :post]
+  # )
+
 end
