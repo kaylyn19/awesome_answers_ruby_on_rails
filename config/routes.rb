@@ -51,10 +51,10 @@ Rails.application.routes.draw do
 
   resources :job_posts, only: [:new, :create, :show, :destroy, :index]
 
-  # match("/delayed_job",
-  # to: DelayedJobWeb, 
-  # anchor: false, 
-  # via: [:get, :post]
-  # )
+  match("/delayed_job",
+  to: DelayedJobWeb, 
+  anchor: false, 
+  via: [:get, :post]
+  )
 
 end
