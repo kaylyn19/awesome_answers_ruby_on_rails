@@ -51,6 +51,23 @@ Rails.application.routes.draw do
 
   resources :job_posts, only: [:new, :create, :show, :destroy, :index]
 
+
+  # setting up routes for an api
+  # The option 'deafults: {format: :json}' will set json as the default response for all routes contained within the block of the namespace
+  # so that we don't have to pass .json in url
+
+  # The namespace method in Rails routes makes it so it will automatically look in a directory api, then in a sub directory v1 for QuestionsController
+  namespace :api, defaults: { format: :json} do 
+    # /api...
+    namespace :v1 do
+      # /api/v1...
+      resources :questions
+      # /api/v1/questions
+      resource :session, only: [:create, :destroy]
+    end
+  end
+
+  ##############################
   match("/delayed_job",
   to: DelayedJobWeb, 
   anchor: false, 
