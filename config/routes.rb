@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      get 'users/current'
+    end
+  end
   get 'likes/create'
   get 'likes/destroy'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -64,6 +69,13 @@ Rails.application.routes.draw do
       resources :questions
       # /api/v1/questions
       resource :session, only: [:create, :destroy]
+      # /api/v1/user
+      resources :users, only: [:create] do
+        # api/v1/users/current
+        get :current, on: :collection
+        # option collection makes the path neater
+        # default: api/v1/users/:id/current
+      end
     end
   end
 

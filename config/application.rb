@@ -36,5 +36,16 @@ module AwesomeAnswersMay
       g.assets = false
     end
 
+    # configure CORS
+    config.middleware.insert_before 0, Rack::Cors do # Rails config, we want to add sth in middleware at the very front and pass a lambda (Rack::Cors)
+      allow do
+        origins('127.0.0.1:5500', 'localhost:8080', 'localhost:3001') # which domains are allowed to make a request to the domain
+        resource '/api/*', headers: :any, credentials: true, methods: [:get, :post, :delete, :patch, :put, :options] # limit what resources those domains can access
+        # headers: :any this allows ll HTTP headers to be sent
+        # credentials: true allows sharing of cookies for CORS requests made to this resource; if there's cookie stored in the browser we can send a requeset to this endpoint
+        # methods: [:get, :post, :delete, :patch, :put, :options] defines the HTTP verbs which are allowed in a request
+      end
+    end
+
   end
 end
