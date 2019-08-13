@@ -23,6 +23,5 @@ class Api::V1::UsersController < Api::ApplicationController
   end
 
   def record_invalid(error)
-    byebug
   end
 end

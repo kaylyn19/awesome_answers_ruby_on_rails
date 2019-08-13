@@ -49,6 +49,11 @@ gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'active_model_serializers' # a library for being able to customize how models can be serialized into json
 gem 'rack-cors'
+gem 'geocoder'
+gem 'gmaps4rails'
+gem 'underscore-rails'
+gem 'mini_magick', '~> 4.8'
+gem 'aws-sdk-s3'
 
 
 group :development, :test do

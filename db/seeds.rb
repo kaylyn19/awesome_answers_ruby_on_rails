@@ -35,6 +35,7 @@ NUM_USERS.times do
   User.create(
     first_name: first_name,
     last_name: last_name,
+    address: Faker::Address.full_address,
     email: "#{first_name.downcase}.#{last_name.downcase}@example.com",
     password: PASSWORD
   )

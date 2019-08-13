@@ -49,7 +49,7 @@ class Question < ApplicationRecord
     # if the name of the association (i.e. :tags) is the same as the source singularized (i.e. :tag)
     # then the source argument can be omitted.
 
-
+    has_one_attached :image
 
 
     # Create validations by using the 'validates' method

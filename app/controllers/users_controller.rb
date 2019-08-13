@@ -13,10 +13,14 @@ class UsersController < ApplicationController
         end
     end
 
+    def show
+        @user = User.find params[:id]
+    end
+
     private
 
     def user_params
-        params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+        params.require(:user).permit(:first_name, :last_name, :address, :email, :password, :password_confirmation)
         # you don't need password_digest because you want to permit password and password_confirmation which will come from the form and they will get hashed and stored in password_digest
     end
 end
