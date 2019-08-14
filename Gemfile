@@ -54,6 +54,7 @@ gem 'gmaps4rails'
 gem 'underscore-rails'
 gem 'mini_magick', '~> 4.8'
 gem 'aws-sdk-s3'
+gem 'omniauth-github'
 
 
 group :development, :test do

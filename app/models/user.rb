@@ -29,12 +29,39 @@ class User < ApplicationRecord
 
     VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i #email validation regex
 
-    validates :email, presence: true, uniqueness: true, format: VALID_EMAIL_REGEX
+    validates :email, presence: true, uniqueness: true, format: VALID_EMAIL_REGEX, unless: :from_oauth?
 
     geocoded_by :address
     after_validation :geocode
     
     def full_name
         "#{first_name} #{last_name}".strip
+    end
+
+    serialize :oauth_raw_data # store a hash into an attribute; deafult in yml format
+    # class methods
+    def self.create_from_oauth(oauth_data)
+        names = oauth_data["info"]["name"]&.split || oauth_data["info"]["nickname"]
+        self.create(
+            first_name: names[0],
+            last_name: names[1] || "",
+            uid: oauth_data["uid"],
+            provider: oauth_data["provider"],
+            oauth_raw_data: oauth_data,
+            password: SecureRandom.hex(32) # a way to generate a password, skipping password validation
+        )
+    end
+
+    def self.find_by_oauth(oauth_data)
+        self.find_by(
+            uid: oauth_data["uid"], # find by uid to make sure the id is coming from github, especially when you have multiple oauth solutions
+            provider: oauth_data["provider"]
+        )
+    end
+
+    private
+
+    def from_oauth?
+        uid.present? && provider.present?
     end
 end
